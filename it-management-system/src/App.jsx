@@ -7,6 +7,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import Navbar from './components/Shared/Navbar';
 import Footer from './components/Shared/Footer';
+import PcDetails from './components/User/PcDetails';
+import EditPC from './components/Admin/EditPC';
 
 function App() {
   return (
@@ -18,7 +20,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/user" element={<UserDashboard />} />
-          
+          <Route path="/pc/:pc_id" element={<PcDetails />} />
+          <Route path="/edit-pc/:pc_id" element={<EditPC />} />
         </Routes>
       </div>
       <Footer />

@@ -1,6 +1,6 @@
 // src/components/Admin/ViewRequests.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import { Link } from 'react-router-dom';
 
 const ViewRequests = () => {
@@ -10,7 +10,7 @@ const ViewRequests = () => {
 
   const fetchRequests = async () => {
     try {
-      const response = await axios.get('/api/pcs?actionStatus=Pending');
+      const response = await api.get('/pcs?actionStatus=Pending');
       setRequests(response.data);
       setLoading(false);
     } catch (err) {
@@ -26,7 +26,7 @@ const ViewRequests = () => {
 
   const approveRequest = async (id) => {
     try {
-      await axios.patch(`/api/pcs/${id}/approve`);
+      await api.patch(`/pcs/${id}/approve`);
       fetchRequests();
     } catch (err) {
       console.error('Error approving request:', err);
@@ -36,7 +36,7 @@ const ViewRequests = () => {
 
   const rejectRequest = async (id) => {
     try {
-      await axios.patch(`/api/pcs/${id}/reject`);
+      await api.patch(`/pcs/${id}/reject`);
       fetchRequests();
     } catch (err) {
       console.error('Error rejecting request:', err);
@@ -67,7 +67,9 @@ const ViewRequests = () => {
             {requests.map((request) => (
               <tr key={request._id}>
                 <td className="border px-2 py-2">{request.pc_id}</td>
-                <td className="border px-2 py-2">{request.requestedBy.username}</td>
+                <td className="border px-2 py-2">
+                  {request.requestedBy?.username || request.requestedBy?.fullName || 'N/A'}
+                </td>
                 <td className="border px-2 py-2">
                   {request.isDeleteRequest ? 'Delete' : 'Edit'}
                 </td>

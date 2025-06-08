@@ -1,26 +1,21 @@
 // src/components/Admin/EditPc.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
 function EditPc() {
-  const [pc, setPc] = useState({
-    pc_id: '',
-    registerDate: '',
-    networkType: 'DRONA',
-    deptName: '',
-    username: '',
-    deviceName: '',
-    macAddress: '',
-    ipAddress: '',
-    osVersion: '',
-    cpuSerialNo: '',
-    pcModel: '',
-    pcSerialNo: '',
-    antivirusStatus: 'Yes',
-    firewallEnabled: true,
-    wsusImplemented: true,
-    ntpStatus: true,
-  });
+  const { pc_id } = useParams();
+  const navigate = useNavigate();
+  const [pc, setPc] = useState(null);
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    // Fetch the PC details by pc_id
+    api.get(`/pcs/by-pcid/${pc_id}`)
+      .then(res => setPc(res.data))
+      .catch(() => setError('Failed to load PC details'));
+  }, [pc_id]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,22 +27,23 @@ function EditPc() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSaving(true);
     try {
-      const payload = {
-        ...pc,
-        pc_id: Number(pc.pc_id),
-        registerDate: new Date(pc.registerDate),
-      };
-      await api.post('/pcs', payload);
-      alert('PC added successfully');
+      await api.put(`/pcs/${pc._id}`, pc);
+      alert('PC updated successfully');
+      navigate(-1); // Go back after saving
     } catch (error) {
-      alert(error.response?.data?.message || 'Server error');
+      setError(error.response?.data?.message || 'Server error');
     }
+    setSaving(false);
   };
+
+  if (error) return <div className="alert alert-danger">{error}</div>;
+  if (!pc) return <div>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add PC</h2>
+      <h2>Edit PC</h2>
       <div>
         <label>PC ID:</label>
         <input
@@ -56,6 +52,7 @@ function EditPc() {
           value={pc.pc_id}
           onChange={handleChange}
           required
+          disabled // PC ID should not be changed
         />
       </div>
       <div>
@@ -63,7 +60,7 @@ function EditPc() {
         <input
           type="date"
           name="registerDate"
-          value={pc.registerDate}
+          value={pc.registerDate ? pc.registerDate.substring(0, 10) : ''}
           onChange={handleChange}
           required
         />
@@ -201,7 +198,8 @@ function EditPc() {
           onChange={handleChange}
         />
       </div>
-      <button type="submit">Add PC</button>
+      <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save Changes'}</button>
+      <button type="button" onClick={() => navigate(-1)} className="ms-2">Cancel</button>
     </form>
   );
 }

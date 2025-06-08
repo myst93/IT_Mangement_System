@@ -113,7 +113,14 @@ router.delete('/:id', auth, async (req, res) => {
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const pcs = await Pc.find();
+    // Support filtering by actionStatus (for pending requests)
+    const filter = {};
+    if (req.query.actionStatus) {
+      filter.actionStatus = req.query.actionStatus;
+    }
+    const pcs = await Pc.find(filter)
+      .populate('requestedBy', 'username fullName')
+      .populate('approvedBy', 'username fullName');
     res.status(200).json(pcs);
   } catch (err) {
     console.error('Error fetching PCs:', err);
@@ -138,7 +145,11 @@ router.patch('/:id/approve', auth, isAdmin, async (req, res) => {
       await Pc.findByIdAndDelete(req.params.id);
       return res.status(200).json({ message: 'PC deletion approved and completed.' });
     } else {
-      // Approve the edit request
+      // Apply pendingEdit if exists
+      if (pc.pendingEdit) {
+        Object.assign(pc, pc.pendingEdit);
+        pc.pendingEdit = null;
+      }
       pc.actionStatus = 'Approved';
       pc.approvedBy = req.user.userId;
       await pc.save();
@@ -162,10 +173,10 @@ router.patch('/:id/reject', auth, isAdmin, async (req, res) => {
       return res.status(400).json({ message: 'This request is not pending' });
     }
 
-    // Reject request: reset delete flag if any
     pc.actionStatus = 'Rejected';
     pc.isDeleteRequest = false;
     pc.approvedBy = req.user.userId;
+    pc.pendingEdit = null; // Clear pending edit
     await pc.save();
 
     res.status(200).json({ message: 'Request rejected', pc });
@@ -184,8 +195,8 @@ router.post('/request-edit', auth, async (req, res) => {
     const pc = await Pc.findOne({ pc_id: Number(pc_id) });
     if (!pc) return res.status(404).json({ message: 'PC not found' });
 
-    // Mark as pending edit request
-    Object.assign(pc, updates);
+    // Store requested changes in pendingEdit
+    pc.pendingEdit = updates;
     pc.actionStatus = 'Pending';
     pc.approvedBy = null;
     pc.requestedBy = req.user.userId;
@@ -195,6 +206,20 @@ router.post('/request-edit', auth, async (req, res) => {
     res.status(200).json({ message: 'Edit request submitted for approval', pc });
   } catch (err) {
     console.error('Error submitting edit request:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+/**
+ * 8️⃣ GET /api/pcs/by-pcid/:pc_id - Get a PC by its pc_id
+ */
+router.get('/by-pcid/:pc_id', auth, async (req, res) => {
+  try {
+    const pc = await Pc.findOne({ pc_id: Number(req.params.pc_id) });
+    if (!pc) return res.status(404).json({ message: 'PC not found' });
+    res.status(200).json(pc);
+  } catch (err) {
+    console.error('Error fetching PC:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });

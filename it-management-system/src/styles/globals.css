@@ -1,8 +1,6 @@
 /* src/styles/globals.css */
 /* src/styles/globals.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 /* Optional: Add custom styles here */
 /* Reset some default styles */
@@ -91,5 +89,9 @@ button:hover {
 }
 
 footer {
-  @apply text-center mt-10 p-5 bg-gray-100 rounded-lg;
+  text-align: center;
+  margin-top: 40px;
+  padding: 32px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
 }

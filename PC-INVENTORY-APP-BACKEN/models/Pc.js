@@ -33,6 +33,7 @@ const pcSchema = new mongoose.Schema({
   isDeleteRequest: { type: Boolean, default: false }, // Flag delete requests
   requestedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Who made the request
   approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },   // Who approved it
+  pendingEdit: { type: Object, default: null },
 }, {
   timestamps: true
 });
