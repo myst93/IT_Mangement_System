@@ -1,10 +1,13 @@
 // index.js
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
@@ -30,13 +33,14 @@ mongoose.connect(MONGODB_URI, {
 })
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => {
+
   console.error('❌ MongoDB connection error:', err);
   process.exit(1);
 });
 
 mongoose.connection.once('open', () => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server listening on port ${PORT}`);
-  });
+  app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server listening on http://0.0.0.0:${PORT}`);
+});
 });
 

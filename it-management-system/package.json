@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.8",
+    "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "bootstrap-icons": "^1.13.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "mongoose": "^8.15.1",
     "react": "^19.1.0",

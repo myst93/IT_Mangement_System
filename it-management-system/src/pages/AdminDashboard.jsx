@@ -7,9 +7,6 @@ import api from '../services/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
-// Import Bootstrap Icons via CDN or npm react-bootstrap-icons (if installed)
-// Here, for demonstration, let's use SVG from CDN in JSX or add images from Unsplash URLs
-
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('pcs');
   const [pcs, setPcs] = useState([]);
@@ -38,17 +35,25 @@ function AdminDashboard() {
 
   return (
     <div className="min-vh-100 bg-light py-5">
-      <div className="container">
-        {/* Hero Section */}
-        <div className="mb-5 text-center">
+      <div className="container-fluid px-0">
+        {/* Hero Section with full width image */}
+        <div className="mb-5 text-center position-relative overflow-hidden" style={{ maxHeight: '400px' }}>
           <img
-            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=90"
             alt="Admin Dashboard Hero"
-            className="img-fluid rounded shadow mb-3"
-            style={{ maxHeight: '300px', objectFit: 'cover' }}
+            className="w-100 h-100 object-fit-cover"
+            style={{ objectFit: 'cover', height: '400px' }}
           />
-          <h1 className="display-4 fw-bold text-primary">Admin Dashboard</h1>
-          <p className="lead text-secondary">Manage your PCs, users, and requests efficiently.</p>
+          <div
+            className="position-absolute top-50 start-50 translate-middle text-white"
+            style={{
+              textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
+              maxWidth: '90%',
+            }}
+          >
+            <h1 className="display-3 fw-bold">Admin Dashboard</h1>
+            <p className="lead">Manage your PCs, users, and requests efficiently.</p>
+          </div>
         </div>
 
         {/* Navigation Tabs */}
@@ -114,10 +119,16 @@ function AdminDashboard() {
                             </li>
                           </ul>
                           <div className="d-flex justify-content-end gap-2">
-                            <button className="btn btn-outline-primary btn-sm" onClick={() => navigate(`/pc/${pc.pc_id}`)}>
+                            <button
+                              className="btn btn-outline-primary btn-sm"
+                              onClick={() => navigate(`/pc/${pc.pc_id}`)}
+                            >
                               See More
                             </button>
-                            <button className="btn btn-outline-warning btn-sm" onClick={() => navigate(`/edit-pc/${pc.pc_id}`)}>
+                            <button
+                              className="btn btn-outline-warning btn-sm"
+                              onClick={() => navigate(`/edit-pc/${pc.pc_id}`)}
+                            >
                               Edit
                             </button>
                           </div>
