@@ -137,8 +137,7 @@ npm run dev
 
 ## 👤 Authors
 
-- [Your Name](https://github.com/your-username)
-- [Contributors...]
+- [Parth Oberai](https://github.com/myst93)
 
 ---
 
