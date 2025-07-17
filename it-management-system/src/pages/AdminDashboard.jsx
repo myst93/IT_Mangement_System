@@ -51,8 +51,25 @@ function AdminDashboard() {
               maxWidth: '90%',
             }}
           >
-            <h1 className="display-3 fw-bold">Admin Dashboard</h1>
-            <p className="lead">Manage your PCs, users, and requests efficiently.</p>
+            <h1
+              className="display-3 fw-bold px-4 py-2 rounded"
+              style={{
+                background: 'rgba(0,0,0,0.55)',
+                color: '#f8f9fa',
+                display: 'inline-block',
+                boxShadow: '0 2px 16px'
+              }}
+            >
+              Admin Dashboard
+            </h1>
+            <p className="lead"
+            style={{
+              background: 'rgba(0,0,0,0.55)',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 16px'
+            }}
+            >Manage your PCs, users, and requests efficiently.</p>
           </div>
         </div>
 
