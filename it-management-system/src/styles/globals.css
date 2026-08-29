@@ -1,97 +1,301 @@
-/* src/styles/globals.css */
-/* src/styles/globals.css */
+/* =====================================================
+   DRDO IT Management System — Global Design System
+   ===================================================== */
 
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/* Optional: Add custom styles here */
-/* Reset some default styles */
-* {
+/* ── CSS Variables ── */
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0d1b2a;
+  --navy-700: #112240;
+  --navy-600: #1a3055;
+  --navy-500: #1e3a5f;
+  --blue-accent: #1e90ff;
+  --blue-light: #4facfe;
+  --gold: #f0a500;
+  --gold-light: #ffd166;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --bg-page: #f0f4f8;
+  --bg-card: #ffffff;
+  --text-primary: #0d1b2a;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.20);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 15px;
-  color: #222;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
 }
 
 p {
-  margin-bottom: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
 }
 
 a {
-  color: #007bff;
+  color: var(--blue-accent);
   text-decoration: none;
+  transition: var(--transition);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--blue-light);
+  text-decoration: none;
 }
 
-button {
-  padding: 8px 12px;
-  background-color: #007bff;
+/* ── Premium Button Overrides ── */
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: var(--transition);
+  border-radius: var(--radius-sm) !important;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue-accent), #0070e0) !important;
+  border-color: var(--blue-accent) !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3aa0ff, var(--blue-accent)) !important;
+}
+
+.btn-outline-primary {
+  color: var(--blue-accent) !important;
+  border-color: var(--blue-accent) !important;
+}
+
+.btn-outline-primary:hover {
+  background: var(--blue-accent) !important;
+  color: #fff !important;
+}
+
+/* ── Premium Card Overrides ── */
+.card {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  background-color: var(--bg-card);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-weight: 700;
+  color: var(--navy-800);
+}
+
+/* ── Form Controls ── */
+.form-control, .form-select {
+  font-family: 'Inter', sans-serif;
+  border: 1.5px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.6rem 0.85rem !important;
+  font-size: 0.925rem;
+  transition: var(--transition);
+  color: var(--text-primary);
+  background-color: #f8fafc;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--blue-accent) !important;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.15) !important;
+  background-color: #fff;
+  outline: none;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+/* ── Table Overrides ── */
+.table {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+}
+
+.table thead th {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--border);
+  padding: 0.9rem 1rem;
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(30, 144, 255, 0.04);
+}
+
+/* ── Badge Overrides ── */
+.badge {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 0.4em 0.75em;
+  border-radius: 6px !important;
+}
+
+/* ── Spinner ── */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* ── Navbar Global Override ── */
+.navbar {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Alert Overrides ── */
+.alert {
+  border-radius: var(--radius-md) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none !important;
+}
+
+/* ── List Group ── */
+.list-group-item {
+  border-color: var(--border) !important;
+  font-size: 0.9rem;
+  padding: 0.85rem 1rem;
+  color: var(--text-primary);
+}
+
+/* ── Utility Classes ── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-lg);
+}
+
+.stat-card {
+  background: linear-gradient(135deg, var(--navy-700), var(--navy-600));
   color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 5px 0;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg);
 }
 
-button:hover {
-  background-color: #0056b3;
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
 }
 
-.error-message {
-  color: red;
-  margin-bottom: 15px;
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.success-message {
-  color: green;
-  margin-bottom: 15px;
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-/* AddUser.jsx styles */
-.add-user-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-.form-group {
-  margin-bottom: 15px;
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.3); }
+  50%       { box-shadow: 0 0 0 8px rgba(30, 144, 255, 0); }
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+.fade-in-up    { animation: fadeInUp 0.6s ease-out both; }
+.fade-in-left  { animation: fadeInLeft 0.6s ease-out both; }
+.fade-in-right { animation: fadeInRight 0.6s ease-out both; }
 
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
 
+/* ── Footer Global ── */
 footer {
-  text-align: center;
-  margin-top: 40px;
-  padding: 32px;
-  background-color: #f3f4f6;
-  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  margin-top: 0;
 }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: #c5d0de; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #a0aec0; }

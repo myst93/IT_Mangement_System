@@ -13,18 +13,20 @@ import EditPC from './components/Admin/EditPC';
 function App() {
   return (
     <Router>
-      <Navbar />
-      <div className="container mx-auto px-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/user" element={<UserDashboard />} />
-          <Route path="/pc/:pc_id" element={<PcDetails />} />
-          <Route path="/edit-pc/:pc_id" element={<EditPC />} />
-        </Routes>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+        <main style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/"           element={<Home />} />
+            <Route path="/login"      element={<Login />} />
+            <Route path="/admin"      element={<AdminDashboard />} />
+            <Route path="/user"       element={<UserDashboard />} />
+            <Route path="/pc/:pc_id"  element={<PcDetails />} />
+            <Route path="/edit-pc/:pc_id" element={<EditPC />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 }
