@@ -8,8 +8,8 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://it-mangement-system.onrender.com' || 'http://localhost:3000',
-        // target: 'https://it-mangement-system.onrender.com',
+        // target: 'http://localhost:3000',
+        target: 'https://it-mangement-system.onrender.com',
         changeOrigin: true,
       },
     },
