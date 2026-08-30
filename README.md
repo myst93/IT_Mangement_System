@@ -91,6 +91,20 @@ npm run dev
 
 ---
 
+## 🔐 Default Production Credentials
+
+If the database has been seeded with the initial data, you can use the following credentials to access the system:
+
+**IT Administrator (Full Access):**
+- **Username:** `admin`
+- **Password:** `admin123`
+
+**IT Personnel (Restricted Access):**
+- **Username:** `aarav.sharma` (or `vikram.singh`, `neha.gupta`)
+- **Password:** `user123`
+
+---
+
 ## 📋 API Overview
 
 - **User Registration/Login:**  
