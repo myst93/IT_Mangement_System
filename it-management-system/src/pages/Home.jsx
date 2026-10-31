@@ -38,7 +38,14 @@ function Home() {
         ? navigate('/admin')
         : navigate('/user');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      const responseMessage = err.response?.data?.message;
+      if (responseMessage) {
+        setError(responseMessage);
+      } else if (err.response) {
+        setError(`Login service returned HTTP ${err.response.status}. Please try again later.`);
+      } else {
+        setError('Cannot reach the login service. Check the API URL and backend deployment, then try again.');
+      }
     } finally {
       setLoading(false);
     }
